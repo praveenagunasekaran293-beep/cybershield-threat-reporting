@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Threat - CyberShield</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{{ url_for('dashboard') }}">
+            🛡️ CyberShield
+        </a>
+
+        <div>
+
+            <a href="{{ url_for('dashboard') }}"
+               class="btn btn-outline-light btn-sm me-2">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('threats') }}"
+               class="btn btn-outline-light btn-sm me-2">
+                Threat Reports
+            </a>
+
+            <a href="{{ url_for('logout') }}"
+               class="btn btn-outline-light btn-sm">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h2 class="fw-bold mb-2">
+                        Edit Threat Report
+                    </h2>
+
+                    <p class="text-muted mb-4">
+                        Update the cybersecurity threat information.
+                    </p>
+
+
+                    <form method="POST">
+
+                        <!-- Title -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Threat Title
+                            </label>
+
+                            <input
+                                type="text"
+                                name="title"
+                                class="form-control"
+                                value="{{ report.title }}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Description
+                            </label>
+
+                            <textarea
+                                name="description"
+                                class="form-control"
+                                rows="5"
+                                required
+                            >{{ report.description }}</textarea>
+
+                        </div>
+
+
+                        <!-- Threat Type -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Threat Type
+                            </label>
+
+                            <select
+                                name="threat_type"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="Phishing"
+                                    {% if report.threat_type == "Phishing" %}selected{% endif %}>
+                                    Phishing
+                                </option>
+
+                                <option value="Malware"
+                                    {% if report.threat_type == "Malware" %}selected{% endif %}>
+                                    Malware
+                                </option>
+
+                                <option value="Ransomware"
+                                    {% if report.threat_type == "Ransomware" %}selected{% endif %}>
+                                    Ransomware
+                                </option>
+
+                                <option value="SQL Injection"
+                                    {% if report.threat_type == "SQL Injection" %}selected{% endif %}>
+                                    SQL Injection
+                                </option>
+
+                                <option value="DDoS"
+                                    {% if report.threat_type == "DDoS" %}selected{% endif %}>
+                                    DDoS Attack
+                                </option>
+
+                                <option value="Brute Force"
+                                    {% if report.threat_type == "Brute Force" %}selected{% endif %}>
+                                    Brute Force
+                                </option>
+
+                                <option value="Data Breach"
+                                    {% if report.threat_type == "Data Breach" %}selected{% endif %}>
+                                    Data Breach
+                                </option>
+
+                                <option value="Other"
+                                    {% if report.threat_type == "Other" %}selected{% endif %}>
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <!-- Severity -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Severity
+                                </label>
+
+                                <select
+                                    name="severity"
+                                    class="form-select"
+                                    required
+                                >
+
+                                    <option value="Low"
+                                        {% if report.severity == "Low" %}selected{% endif %}>
+                                        Low
+                                    </option>
+
+                                    <option value="Medium"
+                                        {% if report.severity == "Medium" %}selected{% endif %}>
+                                        Medium
+                                    </option>
+
+                                    <option value="High"
+                                        {% if report.severity == "High" %}selected{% endif %}>
+                                        High
+                                    </option>
+
+                                    <option value="Critical"
+                                        {% if report.severity == "Critical" %}selected{% endif %}>
+                                        Critical
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Status -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Status
+                                </label>
+
+                                <select
+                                    name="status"
+                                    class="form-select"
+                                    required
+                                >
+
+                                    <option value="Open"
+                                        {% if report.status == "Open" %}selected{% endif %}>
+                                        Open
+                                    </option>
+
+                                    <option value="Investigating"
+                                        {% if report.status == "Investigating" %}selected{% endif %}>
+                                        Investigating
+                                    </option>
+
+                                    <option value="Resolved"
+                                        {% if report.status == "Resolved" %}selected{% endif %}>
+                                        Resolved
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Source -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Source
+                            </label>
+
+                            <input
+                                type="text"
+                                name="source"
+                                class="form-control"
+                                value="{{ report.source or '' }}"
+                            >
+
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-dark px-4">
+                                Update Threat
+                            </button>
+
+                            <a
+                                href="{{ url_for('threats') }}"
+                                class="btn btn-outline-secondary px-4">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
